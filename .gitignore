@@ -1,3 +1,2 @@
-*.exe
-*.out
-*.cpp
+.vscode/
+build/
