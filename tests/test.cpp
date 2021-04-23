@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip>
 #include <colors/colors.hpp>
 
 int main() {
