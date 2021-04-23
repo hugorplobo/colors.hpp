@@ -2,6 +2,9 @@
 #define COLORS_HPP_
 
 #include <iostream>
+#include <string>
+#include <iomanip>
+#include <fstream>
 
 #if defined(_WIN32) || defined(_WIN64)
 #   define COLORS_TARGET_WINDOWS
@@ -426,6 +429,56 @@ namespace colors {
             stream << "Windows not supported yet";
         #endif
     
+        return stream;
+    }
+
+    inline std::ostream& color(std::ostream& stream, int color_code) {
+        #if defined(COLORS_USE_ANSI_ESCAPE)
+            stream << "\033[38;5;" + std::to_string(color_code) + "m";
+        #else
+            stream << "Windows not supported yet";
+        #endif
+
+        return stream;
+    }
+
+    template <uint8_t color_code> inline std::ostream& color(std::ostream& stream) {
+        #if defined (COLORS_USE_ANSI_ESCAPE)
+            stream << "\033[38;5;" + std::to_string(color_code) + "m";
+        #else
+            stream << "Windows not supported yet";
+        #endif
+
+        return stream;
+    }
+
+    template <uint8_t color_code> inline std::ostream& on_color(std::ostream& stream) {
+        #if defined (COLORS_USE_ANSI_ESCAPE)
+            stream << "\033[48;5;" + std::to_string(color_code) + "m";
+        #else
+            stream << "Windows not supported yet";
+        #endif
+
+        return stream;
+    }
+
+    template <uint8_t red, uint8_t green, uint8_t blue> inline std::ostream& color(std::ostream& stream) {
+        #if defined (COLORS_USE_ANSI_ESCAPE)
+            stream << "\033[38;2;" + std::to_string(red)+ ";" + std::to_string(green) + ";" + std::to_string(blue) + "m";
+        #else
+            stream << "Windows not supported yet";
+        #endif
+
+        return stream;
+    }
+
+    template <uint8_t red, uint8_t green, uint8_t blue> inline std::ostream& on_color(std::ostream& stream) {
+        #if defined (COLORS_USE_ANSI_ESCAPE)
+            stream << "\033[48;2;" + std::to_string(red)+ ";" + std::to_string(green) + ";" + std::to_string(blue) + "m";
+        #else
+            stream << "Windows not supported yet";
+        #endif
+
         return stream;
     }
 

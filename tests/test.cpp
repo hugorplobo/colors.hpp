@@ -1,9 +1,10 @@
 #include <iostream>
+#include <iomanip>
 #include "colors.hpp"
 
 int main() {
 
-    std::cout << "Default Text Style" << "\n";
+    std::cout << "--- Text Style ---" << "\n";
     std::cout << colors::bold << "Bold text" << colors::reset << "\n";
     std::cout << colors::faint << "Faint text" << colors::reset << "\n";
     std::cout << colors::italic << "Italic text" << colors::reset << "\n";
@@ -15,7 +16,7 @@ int main() {
 
     std::cout << "\n";
 
-    std::cout << "Default Foreground Color" << "\n";
+    std::cout << "--- Foreground Named Colors ---" << "\n";
     std::cout << colors::grey << "Grey text" << colors::reset << "\n";
     std::cout << colors::red << "Red text" << colors::reset << "\n";
     std::cout << colors::green << "Green text" << colors::reset << "\n";
@@ -35,7 +36,7 @@ int main() {
 
     std::cout << "\n";
 
-    std::cout << "Default Background Color" << "\n";
+    std::cout << "--- Background Named Colors ---" << "\n";
     std::cout << colors::on_grey << "On grey text" << colors::reset << "\n";
     std::cout << colors::on_red << "On red text" << colors::reset << "\n";
     std::cout << colors::on_green << "On green text" << colors::reset << "\n";
@@ -53,5 +54,40 @@ int main() {
     std::cout << colors::on_bright_cyan << "On bright cyan text" << colors::reset << "\n";
     std::cout << colors::on_bright_white << "On bright white text" << colors::reset << "\n";
 
+    std::cout << "\n";
+
+    std::cout << "--- A Few Examples Of 256 Foreground Colors ---" << "\n";
+    std::cout << colors::color<9> << "Color Code: 9" << colors::reset << "\n";
+    std::cout << colors::color<8> << "Color Code: 8" << colors::reset << "\n";
+    std::cout << colors::color<192> << "Color Code: 192" << colors::reset << "\n";
+    std::cout << colors::color<83> << "Color Code: 83" << colors::reset << "\n";
+    std::cout << colors::color<98> << "Color Code: 98" << colors::reset << "\n";
+
+    std::cout << "\n";
+
+    std::cout << "--- A Few Examples Of 256 Background Colors ---" << "\n";
+    std::cout << colors::on_color<9> << "Color Code: 9" << colors::reset << "\n";
+    std::cout << colors::on_color<8> << "Color Code: 8" << colors::reset << "\n";
+    std::cout << colors::on_color<192> << "Color Code: 192" << colors::reset << "\n";
+    std::cout << colors::on_color<83> << "Color Code: 83" << colors::reset << "\n";
+    std::cout << colors::on_color<98> << "Color Code: 98" << colors::reset << "\n";
+
+    std::cout << "\n";
+
+    std::cout << "--- A Few Examples Of Foreground Truecolors (24-bit RGB) ---" << "\n";
+    std::cout << colors::color<168, 211, 210> << "Color RGB: 168, 211, 210" << colors::reset << "\n";
+    std::cout << colors::color<66, 59, 231> << "Color RGB: 66, 59, 231" << colors::reset << "\n";
+    std::cout << colors::color<68, 233, 160> << "Color RGB: 68, 233, 160" << colors::reset << "\n";
+    std::cout << colors::color<215, 250, 56> << "Color RGB: 215, 250, 56" << colors::reset << "\n";
+    std::cout << colors::color<15, 255, 215> << "Color RGB: 15, 255, 215" << colors::reset << "\n";
+
+    std::cout << "\n";
+
+    std::cout << "--- A Few Examples Of Background Truecolors (24-bit RGB) ---" << "\n";
+    std::cout << colors::on_color<168, 211, 210> << "Color RGB: 168, 211, 210" << colors::reset << "\n";
+    std::cout << colors::on_color<66, 59, 231> << "Color RGB: 66, 59, 231" << colors::reset << "\n";
+    std::cout << colors::on_color<68, 233, 160> << "Color RGB: 68, 233, 160" << colors::reset << "\n";
+    std::cout << colors::on_color<215, 250, 56> << "Color RGB: 215, 250, 56" << colors::reset << "\n";
+    std::cout << colors::on_color<15, 255, 215> << "Color RGB: 15, 255, 215" << colors::reset << "\n";
     return 0;
 }
