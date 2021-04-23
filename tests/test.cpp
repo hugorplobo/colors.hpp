@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include "colors.hpp"
+#include <colors/colors.hpp>
 
 int main() {
 

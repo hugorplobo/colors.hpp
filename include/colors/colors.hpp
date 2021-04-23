@@ -3,8 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <iomanip>
-#include <fstream>
 
 #if defined(_WIN32) || defined(_WIN64)
 #   define COLORS_TARGET_WINDOWS
