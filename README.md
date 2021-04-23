@@ -2,6 +2,8 @@
 #  colors.hpp
 
 ![Example of usage](https://imgur.com/jIs5Vyf.png)
+
+
 Colors.hpp is a simple header for C++ for stylish text in terminal created for study stream manipulators
 
 ## How it works
