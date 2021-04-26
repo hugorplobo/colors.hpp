@@ -32,7 +32,7 @@ int main() {
 ```
 **Important 1:** If your project doesn't have a include folder, use the `#include "colors.hpp"` directive instead!
 
-**Important 2:** You must not forget to use `colors::reset`, otherwise, the colors and styles will be applied to the next output!
+**Important 2:** You must not forget to use `colors::reset`, otherwise, the colors and styles will be applied to the next output! In windows cmd, the colors are applied even if the program has already ended, so be sure to use this manipulator!
 
 ## What colors can I use?
 
@@ -43,7 +43,9 @@ There are four types of manipulator defined in the library
 -  **Background:** changes the text background color;
 
 ### Style manipulators
-**Note:** Some terminals don't support some of this features, like blinking!
+**Note 1:** Some terminals don't support some of this features, like blinking!
+
+**Note 2:** Windows doesn't support these manipulators!
 1. `colors::bold`
 2. `colors::faint`
 3. `colors::italic`
@@ -75,10 +77,14 @@ There are four types of manipulator defined in the library
 
 #### 256 Colors
 You can find the color codes [here](https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#256-colors).
+
+**Note:** Windows doesn't support this manipulator!
 1. `colors::color<COLOR_CODE>` 
 
 #### RGB Colors
 **Note:** Not all terminals supports this feature!
+
+**Note 2:** Windows doesn't support this manipulator!
 1. `colors::color<RED, GREEN, BLUE>`
 
 ### Background manipulators
@@ -103,10 +109,14 @@ You can find the color codes [here](https://gist.github.com/fnky/458719343aabd01
 
 #### 256 Colors
 You can find the color codes [here](https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#256-colors).
+
+**Note:** Windows doesn't support this manipulator!
 1. `colors::on_color<COLOR_CODE>` 
 
 #### RGB Colors
-**Note:** Not all terminals supports this feature!
+**Note 1:** Not all terminals supports this feature!
+
+**Note 2:** Windows doesn't support this manipulator!
 1. `colors::on_color<RED, GREEN, BLUE>`
 
 -----
