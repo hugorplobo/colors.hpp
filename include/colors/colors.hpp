@@ -2,7 +2,6 @@
 #define COLORS_HPP_
 
 #include <iostream>
-#include <string>
 
 #if defined(_WIN32) || defined(_WIN64)
 #   define COLORS_TARGET_WINDOWS
@@ -18,13 +17,58 @@
 #   endif
 #endif
 
+#if defined(COLORS_USE_WINDOWS_API)
+#   include <Windows.h>
+#endif
+
 namespace colors {
+
+    #if defined(COLORS_USE_WINDOWS_API)
+        inline void wset_attributes(std::ostream& stream, int foreground, int background = -1) {
+            // some comments because its windows :/
+
+            // for save default attributes of output
+            static WORD defaultAttributes = 0;
+
+            // get the terminal handle
+            HANDLE handleTerminal = GetStdHandle(STD_OUTPUT_HANDLE);
+
+            // save default attributes
+            if (!defaultAttributes) {
+                CONSOLE_SCREEN_BUFFER_INFO info;
+                if (!GetConsoleScreenBufferInfo(handleTerminal, &info)) return;
+                defaultAttributes = info.wAttributes;
+            }
+
+            // restore all to the default settings
+            if (foreground == -1 && background == -1) {
+                SetConsoleTextAttribute(handleTerminal, defaultAttributes);
+                return;
+            }
+
+            // get the current settings
+            CONSOLE_SCREEN_BUFFER_INFO info;
+            if (!GetConsoleScreenBufferInfo(handleTerminal, &info)) return;
+
+            if (foreground != -1) {
+                info.wAttributes &= ~(info.wAttributes & 0x0F);
+                info.wAttributes |= static_cast<WORD>(foreground);
+            }
+
+            if (background != -1) {
+                info.wAttributes &= ~(info.wAttributes & 0xF0);
+                info.wAttributes |= static_cast<WORD>(background);
+            }
+
+            SetConsoleTextAttribute(handleTerminal, info.wAttributes);
+        }
+    #endif
     
     inline std::ostream& reset(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[00m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, -1);
         #endif
         
         return stream;
@@ -34,7 +78,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[1m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
 
         return stream;
@@ -44,7 +88,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[2m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -54,7 +98,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[3m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -64,7 +108,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[4m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -74,7 +118,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[5m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -84,7 +128,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[7m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -94,7 +138,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[8m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -104,7 +148,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[9m";
         #else
-            stream << "Windows not supported yet";
+            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -114,7 +158,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[30m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, 0);
         #endif
     
         return stream;
@@ -124,7 +168,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[31m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_RED);
         #endif
     
         return stream;
@@ -134,7 +178,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[32m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_GREEN);
         #endif
     
         return stream;
@@ -144,7 +188,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[33m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN);
         #endif
     
         return stream;
@@ -154,7 +198,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[34m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_BLUE);
         #endif
     
         return stream;
@@ -164,7 +208,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[35m";
         #else
-            stream << "Windows not supported yet";
+           wset_attributes(stream, FOREGROUND_RED | FOREGROUND_BLUE);
         #endif
     
         return stream;
@@ -174,7 +218,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[36m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN);
         #endif
     
         return stream;
@@ -184,7 +228,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[37m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         #endif
     
         return stream;
@@ -194,7 +238,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[90m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, 0 | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -204,7 +248,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[91m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -214,7 +258,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[92m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -224,7 +268,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[93m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -234,7 +278,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[94m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -244,7 +288,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[95m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -254,7 +298,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[96m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -264,7 +308,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[97m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -274,7 +318,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[40m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, 0);
         #endif
     
         return stream;
@@ -284,7 +328,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[41m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_RED);
         #endif
     
         return stream;
@@ -294,7 +338,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[42m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_GREEN);
         #endif
     
         return stream;
@@ -304,7 +348,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[43m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_GREEN);
         #endif
     
         return stream;
@@ -314,7 +358,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[44m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_BLUE);
         #endif
     
         return stream;
@@ -324,7 +368,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[45m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_BLUE);
         #endif
     
         return stream;
@@ -334,7 +378,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[46m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_GREEN);
         #endif
     
         return stream;
@@ -344,7 +388,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[47m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
         #endif
     
         return stream;
@@ -354,7 +398,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[100m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, 0 | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -364,7 +408,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[101m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -374,7 +418,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[102m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -384,7 +428,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[103m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -394,7 +438,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[104m";
         #else
-            stream << "Windows not supported yet";
+            wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -404,7 +448,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[105m";
         #else
-            stream << "Windows not supported yet";
+             wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -414,7 +458,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[106m";
         #else
-            stream << "Windows not supported yet";
+             wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -424,62 +468,11 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[107m";
         #else
-            stream << "Windows not supported yet";
+             wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
     }
-
-    inline std::ostream& color(std::ostream& stream, int color_code) {
-        #if defined(COLORS_USE_ANSI_ESCAPE)
-            stream << "\033[38;5;" + std::to_string(color_code) + "m";
-        #else
-            stream << "Windows not supported yet";
-        #endif
-
-        return stream;
-    }
-
-    template <uint8_t color_code> inline std::ostream& color(std::ostream& stream) {
-        #if defined (COLORS_USE_ANSI_ESCAPE)
-            stream << "\033[38;5;" + std::to_string(color_code) + "m";
-        #else
-            stream << "Windows not supported yet";
-        #endif
-
-        return stream;
-    }
-
-    template <uint8_t color_code> inline std::ostream& on_color(std::ostream& stream) {
-        #if defined (COLORS_USE_ANSI_ESCAPE)
-            stream << "\033[48;5;" + std::to_string(color_code) + "m";
-        #else
-            stream << "Windows not supported yet";
-        #endif
-
-        return stream;
-    }
-
-    template <uint8_t red, uint8_t green, uint8_t blue> inline std::ostream& color(std::ostream& stream) {
-        #if defined (COLORS_USE_ANSI_ESCAPE)
-            stream << "\033[38;2;" + std::to_string(red)+ ";" + std::to_string(green) + ";" + std::to_string(blue) + "m";
-        #else
-            stream << "Windows not supported yet";
-        #endif
-
-        return stream;
-    }
-
-    template <uint8_t red, uint8_t green, uint8_t blue> inline std::ostream& on_color(std::ostream& stream) {
-        #if defined (COLORS_USE_ANSI_ESCAPE)
-            stream << "\033[48;2;" + std::to_string(red)+ ";" + std::to_string(green) + ";" + std::to_string(blue) + "m";
-        #else
-            stream << "Windows not supported yet";
-        #endif
-
-        return stream;
-    }
-
 }
 
 #undef COLORS_TARGET_POSIX
