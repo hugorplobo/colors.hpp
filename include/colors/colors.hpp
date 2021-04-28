@@ -77,8 +77,6 @@ namespace colors {
     inline std::ostream& bold(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[1m";
-        #else
-            stream << "Windows not supported";
         #endif
 
         return stream;
@@ -87,8 +85,6 @@ namespace colors {
     inline std::ostream& faint(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[2m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -97,8 +93,6 @@ namespace colors {
     inline std::ostream& italic(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[3m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -107,8 +101,6 @@ namespace colors {
     inline std::ostream& underline(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[4m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -117,8 +109,6 @@ namespace colors {
     inline std::ostream& blink(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[5m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -127,8 +117,6 @@ namespace colors {
     inline std::ostream& reverse(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[7m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -137,8 +125,6 @@ namespace colors {
     inline std::ostream& invisible(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[8m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
@@ -147,8 +133,6 @@ namespace colors {
     inline std::ostream& strikethrough(std::ostream& stream) {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[9m";
-        #else
-            stream << "Windows not supported";
         #endif
     
         return stream;
