@@ -4,7 +4,7 @@
 ![Example of usage](https://imgur.com/jIs5Vyf.png)
 
 
-Colors.hpp is a simple header for C++ for stylish text in terminal created for study stream manipulators
+Colors.hpp is a simple header for C++ for stylish text in terminal created for study stream manipulators.
 
 ## How it works
 
@@ -36,7 +36,7 @@ int main() {
 
 ## What colors can I use?
 
-There are four types of manipulator defined in the library
+There are four types of manipulator defined in the library:
 
 -  **Style:** changes the text decoration style;
 - **Foreground:** changes the text color itself;
