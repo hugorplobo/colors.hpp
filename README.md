@@ -8,7 +8,7 @@ Colors.hpp is a simple header for C++ for stylish text in terminal created for s
 
 ## How it works
 
-The library uses ANSI escape sequences via stream manipulators. At the moment, Windows is not supported, but I have plans to use its API in the future and add some functionality to the system (not all, since its own API is limited).
+The library uses ANSI escape sequences via stream manipulators. Now, Windows is supported through its API, to see what features are available, see the methods list below.
 
 ## Installation
 
