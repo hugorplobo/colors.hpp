@@ -24,7 +24,7 @@
 namespace colors {
 
     #if defined(COLORS_USE_WINDOWS_API)
-        inline void wset_attributes(std::ostream& stream, int foreground, int background = -1) {
+        inline void wset_attributes(int foreground, int background = -1) {
             // some comments because its windows :/
 
             // for save default attributes of output
@@ -68,7 +68,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[00m";
         #else
-            wset_attributes(stream, -1, -1);
+            wset_attributes(-1, -1);
         #endif
         
         return stream;
@@ -142,7 +142,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[30m";
         #else
-            wset_attributes(stream, 0);
+            wset_attributes(0);
         #endif
     
         return stream;
@@ -152,7 +152,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[31m";
         #else
-            wset_attributes(stream, FOREGROUND_RED);
+            wset_attributes(FOREGROUND_RED);
         #endif
     
         return stream;
@@ -162,7 +162,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[32m";
         #else
-            wset_attributes(stream, FOREGROUND_GREEN);
+            wset_attributes(FOREGROUND_GREEN);
         #endif
     
         return stream;
@@ -172,7 +172,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[33m";
         #else
-            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN);
+            wset_attributes(FOREGROUND_RED | FOREGROUND_GREEN);
         #endif
     
         return stream;
@@ -182,7 +182,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[34m";
         #else
-            wset_attributes(stream, FOREGROUND_BLUE);
+            wset_attributes(FOREGROUND_BLUE);
         #endif
     
         return stream;
@@ -192,7 +192,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[35m";
         #else
-           wset_attributes(stream, FOREGROUND_RED | FOREGROUND_BLUE);
+           wset_attributes(FOREGROUND_RED | FOREGROUND_BLUE);
         #endif
     
         return stream;
@@ -202,7 +202,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[36m";
         #else
-            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN);
+            wset_attributes(FOREGROUND_BLUE | FOREGROUND_GREEN);
         #endif
     
         return stream;
@@ -212,7 +212,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[37m";
         #else
-            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+            wset_attributes(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
         #endif
     
         return stream;
@@ -222,7 +222,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[90m";
         #else
-            wset_attributes(stream, 0 | FOREGROUND_INTENSITY);
+            wset_attributes(0 | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -232,7 +232,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[91m";
         #else
-            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_RED | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -242,7 +242,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[92m";
         #else
-            wset_attributes(stream, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -252,7 +252,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[93m";
         #else
-            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -262,7 +262,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[94m";
         #else
-            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -272,7 +272,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[95m";
         #else
-            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -282,7 +282,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[96m";
         #else
-            wset_attributes(stream, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -292,7 +292,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[97m";
         #else
-            wset_attributes(stream, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            wset_attributes(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -302,7 +302,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[40m";
         #else
-            wset_attributes(stream, -1, 0);
+            wset_attributes(-1, 0);
         #endif
     
         return stream;
@@ -312,7 +312,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[41m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_RED);
+            wset_attributes(-1, BACKGROUND_RED);
         #endif
     
         return stream;
@@ -322,7 +322,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[42m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_GREEN);
+            wset_attributes(-1, BACKGROUND_GREEN);
         #endif
     
         return stream;
@@ -332,7 +332,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[43m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_GREEN);
+            wset_attributes(-1, BACKGROUND_RED | BACKGROUND_GREEN);
         #endif
     
         return stream;
@@ -342,7 +342,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[44m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_BLUE);
+            wset_attributes(-1, BACKGROUND_BLUE);
         #endif
     
         return stream;
@@ -352,7 +352,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[45m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_BLUE);
+            wset_attributes(-1, BACKGROUND_RED | BACKGROUND_BLUE);
         #endif
     
         return stream;
@@ -362,7 +362,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[46m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_GREEN);
+            wset_attributes(-1, BACKGROUND_BLUE | BACKGROUND_GREEN);
         #endif
     
         return stream;
@@ -372,7 +372,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[47m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
+            wset_attributes(-1, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
         #endif
     
         return stream;
@@ -382,7 +382,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[100m";
         #else
-            wset_attributes(stream, -1, 0 | BACKGROUND_INTENSITY);
+            wset_attributes(-1, 0 | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -392,7 +392,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[101m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_RED | BACKGROUND_INTENSITY);
+            wset_attributes(-1, BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -402,7 +402,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[102m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_INTENSITY);
+            wset_attributes(-1, BACKGROUND_GREEN | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -412,7 +412,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[103m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY);
+            wset_attributes(-1, BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -422,7 +422,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[104m";
         #else
-            wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+            wset_attributes(-1, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -432,7 +432,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[105m";
         #else
-             wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_INTENSITY);
+             wset_attributes(-1, BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -442,7 +442,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[106m";
         #else
-             wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_INTENSITY);
+             wset_attributes(-1, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
@@ -452,7 +452,7 @@ namespace colors {
         #if defined(COLORS_USE_ANSI_ESCAPE)
             stream << "\033[107m";
         #else
-             wset_attributes(stream, -1, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY);
+             wset_attributes(-1, BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY);
         #endif
     
         return stream;
